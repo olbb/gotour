@@ -1,11 +1,10 @@
 package main
 
 import (
-	"fmt"
+	"./basic"
 )
 
 func main() {
-	fmt.Println("test")
-	fmt.Println("test2")
+	basic.DoTest()
 
 }
