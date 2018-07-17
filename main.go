@@ -1,8 +1,6 @@
 package main
 
-import (
-	"./basic"
-)
+import "github.com/olbb/gotour/basic"
 
 func main() {
 	basic.DoTest()
