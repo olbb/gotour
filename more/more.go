@@ -13,6 +13,7 @@ func DoTest() {
 	froballTest()
 }
 
+//Go 函数可以是一个闭包。闭包是一个函数值，它引用了其函数体之外的变量。该函数可以访问并赋予其引用的变量的值，换句话说，该函数被“绑定”在了这些变量上。
 func fibonacci() func() int {
 	x, y := 0, 1
 	return func() int {
