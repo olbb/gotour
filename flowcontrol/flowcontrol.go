@@ -9,12 +9,38 @@ import (
 //DoTest ...
 func DoTest() {
 	// fmt.Println("DoTest")
-	switchTest2()
+	defer2()
+}
+
+//defer后进先出
+func defer2() {
+	fmt.Println("counting")
+	for i := 0; i < 20; i++ {
+		defer fmt.Println(i)
+	}
+	fmt.Println("done")
+}
+
+func defer1() {
+	defer fmt.Println("World!")
+	fmt.Println("Hello")
+}
+
+func switchTest3() {
+	t := time.Now()
+	switch {
+	case t.Hour() < 12:
+		fmt.Println("Good morning")
+	case t.Hour() < 18:
+		fmt.Println("Good afternoon")
+	default:
+		fmt.Println("Good night")
+	}
 }
 
 func switchTest2() {
 	today := time.Now().Weekday()
-	switch time.Friday {
+	switch time.Saturday {
 	case today:
 		fmt.Println("Today")
 	case today + 1:
