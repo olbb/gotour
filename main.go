@@ -1,10 +1,9 @@
 package main
 
-import (
-	"github.com/olbb/gotour/flowcontrol"
-)
+import "github.com/olbb/gotour/more"
 
 func main() {
 	// basic.DoTest()
-	flowcontrol.DoTest()
+	// flowcontrol.DoTest()
+	more.DoTest()
 }
