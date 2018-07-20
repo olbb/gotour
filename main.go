@@ -1,9 +1,10 @@
 package main
 
-import "github.com/olbb/gotour/more"
+import "github.com/olbb/gotour/methodsandinterfaces"
 
 func main() {
 	// basic.DoTest()
 	// flowcontrol.DoTest()
-	more.DoTest()
+	// more.DoTest()
+	methodsandinterfaces.DoTest()
 }
