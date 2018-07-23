@@ -2,6 +2,8 @@ package methodsandinterfaces
 
 import (
 	"fmt"
+	"image"
+	"image/color"
 	"io"
 	"math"
 	"os"
@@ -9,11 +11,33 @@ import (
 	"time"
 
 	"github.com/Go-zh/tour/reader"
+	"golang.org/x/tour/pic"
 )
 
 //DoTest 111
 func DoTest() {
-	readerExercies()
+	imageExercies()
+}
+
+func imageExercies() {
+	m := Image{}
+	pic.ShowImage(m)
+}
+
+//Image 11
+type Image struct {
+}
+
+func (i Image) At(x, y int) color.Color {
+	return color.Black
+}
+
+func (i Image) ColorModel() color.Model {
+	return color.RGBA64Model
+}
+
+func (i Image) Bounds() image.Rectangle {
+	return image.Rect(0, 0, 500, 500)
 }
 
 type rot13Reader struct {
@@ -27,12 +51,25 @@ func rot13Exercies() {
 }
 
 func (r rot13Reader) Read(b []byte) (int, error) {
-	for _, v := range b {
-		if v > 13 {
-
+	l, e := r.r.Read(b)
+	if e != nil {
+		return l, e
+	}
+	for i, v := range b {
+		switch {
+		case v < 65:
+		case v < 78: //A-M
+			b[i] = v + 13
+		case v < 91: //N-Z
+			b[i] = v - 13
+		case v < 97:
+		case v < 110: //a-m
+			b[i] = v + 13
+		case v < 123: //n-z
+			b[i] = v - 13
 		}
 	}
-	return len(b), nil
+	return l, e
 }
 
 func readerExercies() {
