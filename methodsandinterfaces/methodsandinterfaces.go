@@ -2,12 +2,175 @@ package methodsandinterfaces
 
 import (
 	"fmt"
+	"io"
 	"math"
+	"os"
+	"strings"
+	"time"
+
+	"github.com/Go-zh/tour/reader"
 )
 
 //DoTest 111
 func DoTest() {
-	interfaceTest3()
+	readerExercies()
+}
+
+type rot13Reader struct {
+	r io.Reader
+}
+
+func rot13Exercies() {
+	s := strings.NewReader("Lbh penpxrq gur pbqr!")
+	r := rot13Reader{s}
+	io.Copy(os.Stdout, &r)
+}
+
+func (r rot13Reader) Read(b []byte) (int, error) {
+	for _, v := range b {
+		if v > 13 {
+
+		}
+	}
+	return len(b), nil
+}
+
+func readerExercies() {
+	r := myReader{}
+	reader.Validate(r)
+}
+
+func (r myReader) Read(b []byte) (int, error) {
+	c := byte('A')
+	for i := range b {
+		// v = c
+		b[i] = c
+	}
+	return len(b), nil
+}
+
+type myReader struct {
+}
+
+func readerTest() {
+	r := strings.NewReader("Hello, World!")
+	b := make([]byte, 8)
+	for {
+		n, err := r.Read(b)
+		fmt.Printf("n = %v, err = %v, b = %v\n", n, err, b)
+		fmt.Printf("b[:n] = %q\n", b[:n])
+		if err == io.EOF {
+			break
+		}
+	}
+}
+
+func Sqrt(x float64) (float64, error) {
+	if x < 0 {
+		return 0, ErrNegativeSqrt(x)
+	}
+	z := 1.0
+	for i := 0; i < 10; i++ {
+		z -= (z*z - x) / (2 * z)
+		// fmt.Println("z is:", z)
+		if z*z == x {
+			return z, nil
+		}
+
+	}
+	return z, nil
+}
+
+type ErrNegativeSqrt float64
+
+func (e ErrNegativeSqrt) Error() string {
+	return fmt.Sprintf("cannot Sqrt negative number:%v", float64(e))
+}
+
+func errorTest2() {
+	fmt.Println(Sqrt(2))
+	fmt.Println(Sqrt(-2))
+}
+
+func (e myError) Error() string {
+	return fmt.Sprintf("at %v, %v", e.time, e.msg)
+}
+
+func errorTest() {
+	err := run()
+	fmt.Println(err)
+}
+
+func run() myError {
+	return myError{"can't accesss.", time.Now()}
+}
+
+type myError struct {
+	msg  string
+	time time.Time
+}
+
+func (add IPAddr) String() string {
+	return fmt.Sprintf("%v.%v.%v.%v", add[0], add[1], add[2], add[3])
+}
+
+type IPAddr [4]byte
+
+// TODO: Add a "String() string" method to IPAddr.
+
+func stringerTest2() {
+	hosts := map[string]IPAddr{
+		"loopback":  {127, 0, 0, 1},
+		"googleDNS": {8, 8, 8, 8},
+	}
+	for name, ip := range hosts {
+		fmt.Printf("%v: %v\n", name, ip)
+	}
+}
+
+func stringerTest() {
+	j := person{"Jack", 18}
+	r := person{"Rose", 16}
+	fmt.Println(j, r)
+}
+
+//实现了fmt中Stringer接口
+func (p person) String() string {
+	return fmt.Sprintf("%v (%v Years old)", p.name, p.old)
+}
+
+type person struct {
+	name string
+	old  int
+}
+
+func interfaceTest5() {
+	do("hello")
+	do(52)
+	do(true)
+}
+
+func do(i interface{}) {
+	switch v := i.(type) {
+	case int:
+		fmt.Printf("Twice %v is %v.\n", v, v*2)
+	case string:
+		fmt.Printf("string bytes is:%v\n", len(v))
+	default:
+		fmt.Printf("I don't known about the type ! %T\n", v)
+	}
+}
+
+func interfaceTest4() {
+	var i interface{} = "hello"
+	s := i.(string)
+	fmt.Println(s)
+	s, ok := i.(string)
+	fmt.Println(ok, s)
+	f, ok := i.(float64)
+	fmt.Println(ok, f)
+	// f = i.(float64)
+	// fmt.Println(s)
 }
 
 func interfaceTest3() {

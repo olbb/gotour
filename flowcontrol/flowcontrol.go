@@ -9,7 +9,7 @@ import (
 //DoTest ...
 func DoTest() {
 	// fmt.Println("DoTest")
-	defer2()
+	sqrtTest()
 }
 
 //defer后进先出
@@ -24,6 +24,26 @@ func defer2() {
 func defer1() {
 	defer fmt.Println("World!")
 	fmt.Println("Hello")
+}
+
+//z -= (z*z - x) / (2*z)
+func sqrt(f float64) float64 {
+	z := 1.0
+	for i := 0; i < 10; i++ {
+		z -= (z*z - f) / (2 * z)
+		// fmt.Println("z is:", z)
+		if z*z == f {
+			return z
+		}
+
+	}
+	return z
+}
+
+func sqrtTest() {
+	// c := complex(1, 2)
+	// fmt.Println(c)
+	fmt.Println("result is :", sqrt(100))
 }
 
 func switchTest3() {
