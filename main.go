@@ -1,10 +1,11 @@
 package main
 
-import "github.com/olbb/gotour/methodsandinterfaces"
+import "github.com/olbb/gotour/concurrency"
 
 func main() {
 	// basic.DoTest()
 	// flowcontrol.DoTest()
 	// more.DoTest()
-	methodsandinterfaces.DoTest()
+	// methodsandinterfaces.DoTest()
+	concurrency.DoTest()
 }
