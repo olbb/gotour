@@ -2,8 +2,6 @@ package methodsandinterfaces
 
 import (
 	"fmt"
-	"image"
-	"image/color"
 	"io"
 	"math"
 	"os"
@@ -11,33 +9,11 @@ import (
 	"time"
 
 	"github.com/Go-zh/tour/reader"
-	"golang.org/x/tour/pic"
 )
 
 //DoTest 111
 func DoTest() {
-	imageExercies()
-}
-
-func imageExercies() {
-	m := Image{}
-	pic.ShowImage(m)
-}
-
-//Image 11
-type Image struct {
-}
-
-func (i Image) At(x, y int) color.Color {
-	return color.Black
-}
-
-func (i Image) ColorModel() color.Model {
-	return color.RGBA64Model
-}
-
-func (i Image) Bounds() image.Rectangle {
-	return image.Rect(0, 0, 500, 500)
+	rot13Exercies()
 }
 
 type rot13Reader struct {
