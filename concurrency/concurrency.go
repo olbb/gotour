@@ -2,6 +2,7 @@ package concurrency
 
 import (
 	"fmt"
+	"sync"
 	"time"
 
 	"golang.org/x/tour/tree"
@@ -9,7 +10,43 @@ import (
 
 //DoTest concurrency
 func DoTest() {
-	treeExercies()
+	mutexTest()
+}
+
+func mutexTest() {
+	c := safeCounter{v: make(map[string]int)}
+	for i := 0; i < 1000; i++ {
+		go c.Inc("someKey")
+	}
+	time.Sleep(time.Second)
+	fmt.Println(c.Value("someKey"))
+}
+
+type safeCounter struct {
+	v   map[string]int
+	mux sync.Mutex
+}
+
+func (c *safeCounter) Lock() {
+	c.mux.Lock()
+	// fmt.Println("Lock")
+}
+
+func (c *safeCounter) Unlock() {
+	c.mux.Unlock()
+	// fmt.Println("Unlock")
+}
+
+func (c *safeCounter) Inc(key string) {
+	c.Lock()
+	c.v[key]++
+	c.Unlock()
+}
+
+func (c *safeCounter) Value(key string) int {
+	c.Lock()
+	defer c.Unlock()
+	return c.v[key]
 }
 
 func treeExercies() {

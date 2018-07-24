@@ -1,11 +1,15 @@
 package main
 
-import "github.com/olbb/gotour/concurrency"
+import (
+	"time"
+)
 
 func main() {
 	// basic.DoTest()
 	// flowcontrol.DoTest()
 	// more.DoTest()
 	// methodsandinterfaces.DoTest()
-	concurrency.DoTest()
+	// concurrency.DoTest()
+	start()
+	time.Sleep(5 * time.Second)
 }
